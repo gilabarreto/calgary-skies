@@ -1,5 +1,7 @@
 import './App.css';
 
+import Map from './components/Map';
+
 import axios from 'axios';
 
 import { useEffect, useState } from 'react';
@@ -7,6 +9,7 @@ import { useEffect, useState } from 'react';
 function App() {
 
   const [weather, setWeather] = useState([]);
+  const [userLocation, setUserLocation] = useState(null);
 
   const openWeather = `https://api.openweathermap.org/data/2.5/weather?q=calgary&appid=${process.env.REACT_APP_WEATHER_KEY}&units=metric`;
 
@@ -35,14 +38,17 @@ function App() {
     return currentTime.toLocaleTimeString('en-US', timeOptions).replace(' PM', 'pm');
   }
 
+  console.log(weather)
+
   return (
     <>
-      <h1>#Calgar-Skies</h1>
-      <h1>{weather?.main?.temp}</h1>
-      <h2>{weather?.main?.temp_min} / {weather?.main?.temp_max} {`(feels like ${weather?.main?.feels_like})`}</h2>
+      <h1>#Calgary-Skies</h1>
+      <h1>{Math.floor(weather?.main?.temp)}</h1>
+      <h2>{Math.floor(weather?.main?.temp_min)} / {Math.floor(weather?.main?.temp_max)} {`(feels like ${Math.floor(weather?.main?.feels_like)})`}</h2>
       <h2>{formattedDate()}</h2>
       <h2>Sunrise: {formattedTime(weather?.sys?.sunrise)}</h2>
       <h2>Sunset: {formattedTime(weather?.sys?.sunset)}</h2>
+      <Map />
     </>
   );
 }
