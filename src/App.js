@@ -26,6 +26,20 @@ function App() {
     fetchData();
   }, [])
 
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const { latitude, longitude } = position.coords;
+        setUserLocation({ lat: latitude, lng: longitude });
+      },
+      (error) => {
+        console.error(error);
+      }
+    );
+  }, []);
+
+  console.log("userLocation", userLocation)
+
   const formattedDate = () => {
     const currentDate = new Date()
     const dateOptions = { weekday: 'long', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric' };
@@ -42,7 +56,7 @@ function App() {
 
   return (
     <>
-      <h1>#Calgary-Skies</h1>
+      <h1>#CalgarySkies</h1>
       <h1>{Math.floor(weather?.main?.temp)}</h1>
       <h2>{Math.floor(weather?.main?.temp_min)} / {Math.floor(weather?.main?.temp_max)} {`(feels like ${Math.floor(weather?.main?.feels_like)})`}</h2>
       <h2>{formattedDate()}</h2>
