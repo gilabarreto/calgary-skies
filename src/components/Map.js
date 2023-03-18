@@ -1,13 +1,11 @@
-import { GoogleMap, useLoadScript, MarkerF } from "@react-google-maps/api"
-
 import { useEffect } from "react";
-
+import { GoogleMap, useLoadScript, MarkerF } from "@react-google-maps/api"
 import { benches } from "../benches"
 
 export default function Map(props) {
 
   const { userCoords, closestBench, setUserCoords, setClosestBench } = props;
-  
+
   // Load the Google Maps API using the useLoadScript hook
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_KEY
@@ -23,10 +21,8 @@ export default function Map(props) {
         console.error(error);
       }
     );
-  },[]);
+  }, [setUserCoords]);
 
-  // console.log("userCoords", userCoords)
-  
   useEffect(() => {
     if (userCoords) {
       // Calculate the distance between the user's location and each bench
@@ -36,24 +32,37 @@ export default function Map(props) {
         const distance = Math.sqrt(latDiff ** 2 + lngDiff ** 2);
         return { coords: bench, distance };
       });
-      
+
       // Find the closest bench
       const sortedDistances = distances.sort(
         (a, b) => a.distance - b.distance
-        );
-        const sortedBench = sortedDistances[0].coords;
-        setClosestBench(sortedBench);
-        // console.log("closest bench:", closestBench);
-      }
-    }, [userCoords, closestBench]);
-    
-    // If the Google Maps API is not loaded yet, display a loading message
-    if (!isLoaded) return <div>Loading...</div>
-    
-    // Render the ArtistMap component with the coordinates as props
-    return <BenchesMap userCoords={userCoords} />
-  }
-  
+      );
+      const sortedBench = sortedDistances[0].coords;
+      setClosestBench(sortedBench);
+
+      // const geocoder =
+      //   new window.google.maps.Geocoder();
+      // geocoder.geocode(
+      //   { location: { lat: sortedBench.lat, lng: sortedBench.lng } },
+      //   (results, status) => {
+      //     if (status === "OK") {
+      //       setClosestBench(results[0].formatted_address);
+      //       console.log("closest bench address:", results[0].formatted_address);
+      //     } else {
+      //       console.error("Geocoder failed due to: " + status);
+      //     }
+      //   }
+      // );
+    }
+  }, [userCoords, setClosestBench]);
+
+  // If the Google Maps API is not loaded yet, display a loading message
+  if (!isLoaded) return <div>Loading...</div>
+
+  // Render the ArtistMap component with the coordinates as props
+  return <BenchesMap userCoords={userCoords} />
+}
+
 // ArtistMap component that displays the GoogleMap with a marker at a specific location
 function BenchesMap() {
 
