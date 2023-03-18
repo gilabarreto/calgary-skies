@@ -9,7 +9,8 @@ import { useEffect, useState } from 'react';
 function App() {
 
   const [weather, setWeather] = useState([]);
-  const [userLocation, setUserLocation] = useState(null);
+  const [userCoords, setUserCoords] = useState(null);
+  const [closestBench, setClosestBench] = useState(null);
 
   const openWeather = `https://api.openweathermap.org/data/2.5/weather?q=calgary&appid=${process.env.REACT_APP_WEATHER_KEY}&units=metric`;
 
@@ -26,20 +27,6 @@ function App() {
     fetchData();
   }, [])
 
-  useEffect(() => {
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        const { latitude, longitude } = position.coords;
-        setUserLocation({ lat: latitude, lng: longitude });
-      },
-      (error) => {
-        console.error(error);
-      }
-    );
-  }, []);
-
-  console.log("userLocation", userLocation)
-
   const formattedDate = () => {
     const currentDate = new Date()
     const dateOptions = { weekday: 'long', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric' };
@@ -52,7 +39,8 @@ function App() {
     return currentTime.toLocaleTimeString('en-US', timeOptions).replace(' PM', 'pm');
   }
 
-  console.log(weather)
+  // console.log(weather)
+  console.log(closestBench.lat, closestBench.lng,)
 
   return (
     <>
@@ -62,7 +50,8 @@ function App() {
       <h2>{formattedDate()}</h2>
       <h2>Sunrise: {formattedTime(weather?.sys?.sunrise)}</h2>
       <h2>Sunset: {formattedTime(weather?.sys?.sunset)}</h2>
-      <Map />
+      <h2>Closest Bench to watch the Sunset is at {closestBench.lat} {closestBench.lng}</h2>
+      <Map userCoords={userCoords} closestBench={closestBench} setUserCoords={setUserCoords} setClosestBench={setClosestBench} />
     </>
   );
 }
