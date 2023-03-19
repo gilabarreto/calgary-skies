@@ -16,7 +16,7 @@ function App() {
   const randomPage = Math.floor(Math.random() * 100) + 1;
 
   const openWeather = `https://api.openweathermap.org/data/2.5/weather?q=calgary&appid=${process.env.REACT_APP_WEATHER_KEY}&units=metric`;
-  const unsplash = `https://api.unsplash.com/search/photos?query=calgary+sky&page=${randomPage}&color=blue&client_id=${process.env.REACT_APP_UNSPLASH_KEY}`;
+  const unsplash = `https://api.unsplash.com/search/photos?query=calgary+sky&page=${randomPage}&per_page=30&client_id=${process.env.REACT_APP_UNSPLASH_KEY}`;
 
   const fetchPhotos = useCallback(() => {
     axios.get(unsplash).then((res) => {
@@ -50,7 +50,7 @@ function App() {
   const formattedDate = () => {
     const currentDate = new Date()
     const dateOptions = { weekday: 'long', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric' };
-    return currentDate.toLocaleDateString('en-US', dateOptions).replace(' PM', 'pm').replace('at', '@');
+    return currentDate.toLocaleDateString('en-US', dateOptions).replace(' PM', 'pm').replace(' at', ' @');
   }
 
   const formattedTime = (time) => {
@@ -63,7 +63,7 @@ function App() {
     <>
       <h1>#CalgarySkies</h1>
       <h1>{Math.floor(weather?.main?.temp)}</h1>
-      <h2>{Math.floor(weather?.main?.temp_min)} / {Math.floor(weather?.main?.temp_max)} {`(feels like ${Math.floor(weather?.main?.feels_like)})`}</h2>
+      <h2><img src={`https://openweathermap.org/img/wn/${weather?.weather[0]?.icon}@2x.png`} title={weather?.weather[0]?.description} alt="weather icon" />{Math.floor(weather?.main?.temp_min)} / {Math.floor(weather?.main?.temp_max)} {`(feels like ${Math.floor(weather?.main?.feels_like)})`}</h2>
       <h2>{formattedDate()}</h2>
       <h2>Sunrise: {formattedTime(weather?.sys?.sunrise)}</h2>
       <h2>Sunset: {formattedTime(weather?.sys?.sunset)}</h2>

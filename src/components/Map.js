@@ -40,19 +40,19 @@ export default function Map(props) {
       const sortedBench = sortedDistances[0].coords;
       setClosestBench(sortedBench);
 
-      // const geocoder =
-      //   new window.google.maps.Geocoder();
-      // geocoder.geocode(
-      //   { location: { lat: sortedBench.lat, lng: sortedBench.lng } },
-      //   (results, status) => {
-      //     if (status === "OK") {
-      //       setClosestBench(results[0].formatted_address);
-      //       console.log("closest bench address:", results[0].formatted_address);
-      //     } else {
-      //       console.error("Geocoder failed due to: " + status);
-      //     }
-      //   }
-      // );
+      const geocoder =
+        new window.google.maps.Geocoder();
+      geocoder.geocode(
+        { location: { lat: sortedBench.lat, lng: sortedBench.lng } },
+        (results, status) => {
+          if (status === "OK") {
+            setClosestBench(results[0].formatted_address);
+            console.log("closest bench address:", results[0].formatted_address);
+          } else {
+            console.error("Geocoder failed due to: " + status);
+          }
+        }
+      );
     }
   }, [userCoords, setClosestBench]);
 
