@@ -26,33 +26,36 @@ export default function Map(props) {
   useEffect(() => {
     if (userCoords) {
       // Calculate the distance between the user's location and each bench
-      const distances = benches.map((bench) => {
-        const latDiff = userCoords.lat - bench.lat;
-        const lngDiff = userCoords.lng - bench.lng;
-        const distance = Math.sqrt(latDiff ** 2 + lngDiff ** 2);
-        return { coords: bench, distance };
-      });
+      if (typeof window.google !== "undefined" && typeof window.google.maps !== "undefined") {
 
-      // Find the closest bench
-      const sortedDistances = distances.sort(
-        (a, b) => a.distance - b.distance
-      );
-      const sortedBench = sortedDistances[0].coords;
-      setClosestBench(sortedBench);
+        const distances = benches.map((bench) => {
+          const latDiff = userCoords.lat - bench.lat;
+          const lngDiff = userCoords.lng - bench.lng;
+          const distance = Math.sqrt(latDiff ** 2 + lngDiff ** 2);
+          return { coords: bench, distance };
+        });
 
-      const geocoder =
-        new window.google.maps.Geocoder();
-      geocoder.geocode(
-        { location: { lat: sortedBench.lat, lng: sortedBench.lng } },
-        (results, status) => {
-          if (status === "OK") {
-            setClosestBench(results[0].formatted_address);
-            console.log("closest bench address:", results[0].formatted_address);
-          } else {
-            console.error("Geocoder failed due to: " + status);
+        // Find the closest bench
+        const sortedDistances = distances.sort(
+          (a, b) => a.distance - b.distance
+        );
+        const sortedBench = sortedDistances[0].coords;
+        setClosestBench(sortedBench);
+
+        const geocoder =
+          new window.google.maps.Geocoder();
+        geocoder.geocode(
+          { location: { lat: sortedBench.lat, lng: sortedBench.lng } },
+          (results, status) => {
+            if (status === "OK") {
+              setClosestBench(results[0].formatted_address);
+              console.log("closest bench address:", results[0].formatted_address);
+            } else {
+              console.error("Geocoder failed due to: " + status);
+            }
           }
-        }
-      );
+        );
+      }
     }
   }, [userCoords, setClosestBench]);
 
