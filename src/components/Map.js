@@ -47,7 +47,11 @@ export default function Map(props) {
       axios.get(nominatim)
         .then(response => {
           const nominatimData = response.data;
-          const benchAddress = `${nominatimData.address.house_number}, ${nominatimData.address.road}, ${nominatimData.address.suburb}, ${nominatimData.address.postcode}.`;
+          const houseNumber = nominatimData.address.house_number ? `${nominatimData.address.house_number}, ` : '';
+          const road = nominatimData.address.road ? `${nominatimData.address.road}, ` : '';
+          const suburb = nominatimData.address.suburb ? `${nominatimData.address.suburb}, ` : '';
+          const postcode = nominatimData.address.postcode ? `${nominatimData.address.postcode}` : '';
+          const benchAddress = `${houseNumber}${road}${suburb}${postcode}`;
           setClosestBenchAddress(benchAddress);
         })
         .catch(error => {
@@ -82,7 +86,12 @@ function BenchesMap() {
     axios
       .get(nominatim)
       .then(response => {
-        const benchAddress = `${response.data.address.house_number}, ${response.data.address.road}, ${response.data.address.suburb}, ${response.data.address.postcode}`;
+        const nominatimData = response.data;
+        const houseNumber = nominatimData.address.house_number ? `${nominatimData.address.house_number}, ` : '';
+        const road = nominatimData.address.road ? `${nominatimData.address.road}, ` : '';
+        const suburb = nominatimData.address.suburb ? `${nominatimData.address.suburb}, ` : '';
+        const postcode = nominatimData.address.postcode ? `${nominatimData.address.postcode}` : '';
+        const benchAddress = `${houseNumber}${road}${suburb}${postcode}`;
         setSelectedBench({ ...bench, address: benchAddress });
       })
       .catch(error => {
