@@ -4,6 +4,8 @@ import Map from './components/Map';
 
 import axios from 'axios';
 
+import { FiSunrise, FiSunset } from 'react-icons/fi'
+
 import { useEffect, useState, useCallback } from 'react';
 
 function App() {
@@ -61,25 +63,33 @@ function App() {
 
   const formattedDate = () => {
     const currentDate = new Date()
-    const dateOptions = { weekday: 'long', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric' };
-    return currentDate.toLocaleDateString('en-US', dateOptions).replace(' PM', 'pm').replace(' at', ' @');
+    const dateOptions = { weekday: 'long', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric' };
+    return currentDate.toLocaleDateString('en-US', dateOptions).replace(' AM', 'am').replace(' PM', 'pm').replace(' at', ' @');
   }
 
   const formattedTime = (time) => {
     const currentTime = new Date(time * 1000);
     const timeOptions = { hour: 'numeric', minute: 'numeric', hour12: true }
-    return currentTime.toLocaleTimeString('en-US', timeOptions).replace(' PM', 'pm');
+    return currentTime.toLocaleTimeString('en-US', timeOptions).replace(' AM', 'am').replace(' PM', 'pm');
   }
+
+  const [date, setDate] = useState(formattedDate());
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      setDate(formattedDate());
+    }, 1000);
+
+    return () => clearInterval(intervalId);
+  }, []);
 
   return (
     <>
       <h1>#CalgarySkies</h1>
       <h1>{Math.floor(weather?.main?.temp)}</h1>
       <h2><img src={`https://openweathermap.org/img/wn/${weather?.weather[0]?.icon}@2x.png`} title={weather?.weather[0]?.description} alt="weather icon" />{Math.floor(weather?.main?.temp_min)} / {Math.floor(weather?.main?.temp_max)} {`(feels like ${Math.floor(weather?.main?.feels_like)})`}</h2>
-      <h2>{formattedDate()}</h2>
-      <h2>Sunrise: {formattedTime(weather?.sys?.sunrise)}</h2>
-      <h2>Sunset: {formattedTime(weather?.sys?.sunset)}</h2>
-      {userCoords ? <h2>Closest bench to watch the sunset is at {closestBenchAddress}</h2> : <h2 onClick={getUserCoords}>Click here to get closest bench to watch the sunset.</h2> }
+      <h2>{date}</h2>
+      <h2><FiSunrise /> Sunrise: {formattedTime(weather?.sys?.sunrise)} <FiSunset /> Sunset: {formattedTime(weather?.sys?.sunset)}</h2>
+      {userCoords ? <h2>Closest bench to watch the sunset is at {closestBenchAddress}</h2> : <h2 onClick={getUserCoords}>Click here to get closest bench to watch the sunset.</h2>}
       <Map userCoords={userCoords} closestBench={closestBench} setUserCoords={setUserCoords} setClosestBench={setClosestBench} closestBenchAddress={closestBenchAddress} setClosestBenchAddress={setClosestBenchAddress} />
       {photos ? photos.map((data) => (<img src={data?.urls?.small} alt={data?.alt_description} />)) : null}
     </>
