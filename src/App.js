@@ -12,6 +12,7 @@ function App() {
   const [weather, setWeather] = useState(null);
   const [userCoords, setUserCoords] = useState(null);
   const [closestBench, setClosestBench] = useState(null);
+  const [closestBenchAddress, setClosestBenchAddress] = useState(null);
 
   const randomPage = Math.floor(Math.random() * 100) + 1;
 
@@ -67,8 +68,8 @@ function App() {
       <h2>{formattedDate()}</h2>
       <h2>Sunrise: {formattedTime(weather?.sys?.sunrise)}</h2>
       <h2>Sunset: {formattedTime(weather?.sys?.sunset)}</h2>
-      <h2>Closest Bench to watch the Sunset is at {closestBench?.lat} {closestBench?.lng}</h2>
-      <Map userCoords={userCoords} closestBench={closestBench} setUserCoords={setUserCoords} setClosestBench={setClosestBench} />
+      <h2>Closest Bench to watch the Sunset is at {closestBenchAddress}</h2>
+      <Map userCoords={userCoords} closestBench={closestBench} setUserCoords={setUserCoords} setClosestBench={setClosestBench} closestBenchAddress={closestBenchAddress} setClosestBenchAddress={setClosestBenchAddress} />
       {photos ? photos.map((data) => (<img src={data?.urls?.small} alt={data?.alt_description} />)) : null}
     </>
   );
