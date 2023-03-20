@@ -123,7 +123,7 @@ function BenchesMap() {
           onCloseClick={onInfoWindowClose}
         >
           <div>
-            <p>{selectedBench.address}</p>
+            <p><a href={`https://www.google.com/maps/place/${selectedBench.lat},${selectedBench.lng}`} target={"_blank"} rel={"noreferrer"}>{selectedBench.address}</a></p>
           </div>
         </InfoWindow>
       )}

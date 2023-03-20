@@ -19,6 +19,17 @@ function App() {
   const openWeather = `https://api.openweathermap.org/data/2.5/weather?q=calgary&appid=${process.env.REACT_APP_WEATHER_KEY}&units=metric`;
   const unsplash = `https://api.unsplash.com/search/photos?query=calgary+sky&page=${randomPage}&per_page=30&client_id=${process.env.REACT_APP_UNSPLASH_KEY}`;
 
+  const getUserCoords = useCallback(() => {
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const { latitude, longitude } = position.coords;
+        setUserCoords({ lat: latitude, lng: longitude });
+      },
+      (error) => {
+        console.error(error);
+      });
+  }, [setUserCoords]);
+
   const fetchPhotos = useCallback(() => {
     axios.get(unsplash).then((res) => {
       const randomPhotos = res.data.results.sort(() => 0.5 - Math.random()).slice(0, 9);
@@ -68,7 +79,7 @@ function App() {
       <h2>{formattedDate()}</h2>
       <h2>Sunrise: {formattedTime(weather?.sys?.sunrise)}</h2>
       <h2>Sunset: {formattedTime(weather?.sys?.sunset)}</h2>
-      <h2>Closest Bench to watch the Sunset is at {closestBenchAddress}</h2>
+      {userCoords ? <h2>Closest bench to watch the sunset is at {closestBenchAddress}</h2> : <h2 onClick={getUserCoords}>Click here to get closest bench to watch the sunset.</h2> }
       <Map userCoords={userCoords} closestBench={closestBench} setUserCoords={setUserCoords} setClosestBench={setClosestBench} closestBenchAddress={closestBenchAddress} setClosestBenchAddress={setClosestBenchAddress} />
       {photos ? photos.map((data) => (<img src={data?.urls?.small} alt={data?.alt_description} />)) : null}
     </>
