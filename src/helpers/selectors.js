@@ -1,9 +1,17 @@
+export function formattedDate() {
+  const currentDate = new Date()
+  const dateOptions = { weekday: 'long', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric' };
+  return currentDate.toLocaleDateString('en-US', dateOptions).replace(' AM', 'am').replace(' PM', 'pm').replace(' at', ' @');
+}
+
+export function formattedTime(time) {
+  const currentTime = new Date(time * 1000);
+  const timeOptions = { hour: 'numeric', minute: 'numeric', hour12: true }
+  return currentTime.toLocaleTimeString('en-US', timeOptions).replace(' AM', 'am').replace(' PM', 'pm');
+}
+
 export function gradientBg() {
-
-  // Get the current hour
   const hour = new Date().getHours();
-
-  // Define an array of gradient colors for each hour
   const gradients = [
     'radial-gradient(circle, #2c3e50, #2980b9, #87CEEB)', // 12am - 1am
     'radial-gradient(circle, #2980b9, #3498db, #87CEEB)', // 1am - 2am
@@ -30,7 +38,5 @@ export function gradientBg() {
     'radial-gradient(circle at center, #673AB7, #3F51B5, #2c3e50)', // 10pm - 11pm
     'radial-gradient(circle at center, #3F51B5, #2c3e50, #2980b9)', // 11pm - 12am
   ];
-
-  // Apply the gradient background based on the current hour
   return gradients[hour]
 }

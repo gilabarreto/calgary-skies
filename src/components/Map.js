@@ -60,7 +60,6 @@ export default function Map(props) {
     }
   }, [closestBench, setClosestBenchAddress]);
 
-
   useEffect(() => {
     if (!userCoords) {
       getUserCoords();

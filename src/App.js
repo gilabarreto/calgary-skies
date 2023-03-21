@@ -4,14 +4,15 @@ import axios from 'axios';
 
 import Map from './components/Map';
 
-import { gradientBg } from './helpers/gradient_bg.js';
-
 import { FiSunrise, FiSunset } from 'react-icons/fi'
 
 import { useEffect, useState, useCallback } from 'react';
 
+import { formattedDate, formattedTime, gradientBg } from './helpers/selectors';
+
 function App() {
 
+  const [date, setDate] = useState(formattedDate());
   const [photos, setPhotos] = useState(null);
   const [weather, setWeather] = useState(null);
   const [userCoords, setUserCoords] = useState(null);
@@ -23,7 +24,7 @@ function App() {
   const randomPage = Math.floor(Math.random() * 100) + 1;
 
   const openWeather = `https://api.openweathermap.org/data/2.5/weather?q=calgary&appid=${process.env.REACT_APP_WEATHER_KEY}&units=metric`;
-  const unsplash = `https://api.unsplash.com/search/photos?query=calgary+sky&page=${randomPage}&per_page=30&client_id=${process.env.REACT_APP_UNSPLASH_KEY}`;
+  const unsplash = `https://api.unsplash.com/search/photos?query=calgary,sky&page=${randomPage}&per_page=30&orientation=squarish&client_id=${process.env.REACT_APP_UNSPLASH_KEY}`;
 
   const getUserCoords = useCallback(() => {
     navigator.geolocation.getCurrentPosition(
@@ -38,8 +39,8 @@ function App() {
 
   const fetchPhotos = useCallback(() => {
     axios.get(unsplash).then((res) => {
-      const randomPhotos = res.data.results.sort(() => 0.5 - Math.random()).slice(0, 9);
-      setPhotos(randomPhotos);
+      const photosArray = res.data.results.map((photo) => photo.urls?.small);
+      setPhotos(photosArray);
     }).catch((error) => {
       console.log(error);
     })
@@ -51,7 +52,7 @@ function App() {
     }
   }, [fetchPhotos, photos]);
 
-  const fetchData = useCallback(() => {
+  const fetchWeather = useCallback(() => {
     axios.get(openWeather).then((res) => {
       setWeather(res.data);
     }).catch((error) => {
@@ -61,23 +62,10 @@ function App() {
 
   useEffect(() => {
     if (!weather) {
-      fetchData();
+      fetchWeather();
     }
-  }, [fetchData, weather])
+  }, [fetchWeather, weather])
 
-  const formattedDate = () => {
-    const currentDate = new Date()
-    const dateOptions = { weekday: 'long', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric' };
-    return currentDate.toLocaleDateString('en-US', dateOptions).replace(' AM', 'am').replace(' PM', 'pm').replace(' at', ' @');
-  }
-
-  const formattedTime = (time) => {
-    const currentTime = new Date(time * 1000);
-    const timeOptions = { hour: 'numeric', minute: 'numeric', hour12: true }
-    return currentTime.toLocaleTimeString('en-US', timeOptions).replace(' AM', 'am').replace(' PM', 'pm');
-  }
-
-  const [date, setDate] = useState(formattedDate());
   useEffect(() => {
     const intervalId = setInterval(() => {
       setDate(formattedDate());
@@ -103,7 +91,9 @@ function App() {
       <h2><FiSunrise /> Sunrise: {sunrise} <FiSunset /> Sunset: {sunset}</h2>
       {userCoords ? <h2>Closest bench to watch the sunset is at {closestBenchAddress}</h2> : <h2 onClick={getUserCoords}>Click here to get closest bench to watch the sunset.</h2>}
       <Map userCoords={userCoords} closestBench={closestBench} setUserCoords={setUserCoords} setClosestBench={setClosestBench} closestBenchAddress={closestBenchAddress} setClosestBenchAddress={setClosestBenchAddress} />
-      {photos ? photos.map((data) => (<img src={data?.urls?.small} alt={data?.alt_description} />)) : null}
+      {photos ? <img src={photos[Math.floor(Math.random() * photos.length) + 1]} alt={photos?.alt_description} /> : null}
+      {photos ? <img src={photos[Math.floor(Math.random() * photos.length) + 1]} alt={photos?.alt_description} /> : null}
+      {photos ? <img src={photos[Math.floor(Math.random() * photos.length) + 1]} alt={photos?.alt_description} /> : null}
     </div>
   );
 }
