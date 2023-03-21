@@ -86,13 +86,21 @@ function App() {
     return () => clearInterval(intervalId);
   }, []);
 
+  const temperature = `${Math.floor(weather?.main?.temp)}°`;
+  const weatherIcon = (<img src={`https://openweathermap.org/img/wn/${weather?.weather[0]?.icon}@2x.png`} title={weather?.weather[0]?.description} alt="weather icon" />);
+  const minTemp = `${Math.floor(weather?.main?.temp_min)}°`;
+  const maxTemp = `${Math.floor(weather?.main?.temp_max)}°`;
+  const feelsLike = `${Math.floor(weather?.main?.feels_like)}°`;
+  const sunrise = formattedTime(weather?.sys?.sunrise);
+  const sunset = formattedTime(weather?.sys?.sunset);
+
   return (
     <div style={{ background }}>
       <h1>#CalgarySkies</h1>
-      <h1>{Math.floor(weather?.main?.temp)}° <img src={`https://openweathermap.org/img/wn/${weather?.weather[0]?.icon}@2x.png`} title={weather?.weather[0]?.description} alt="weather icon" /></h1>
-      <h2>Hi: {Math.floor(weather?.main?.temp_min)}° / Lo: {Math.floor(weather?.main?.temp_max)}° {`(feels like ${Math.floor(weather?.main?.feels_like)}°)`}</h2>
+      <h1>{temperature} {weatherIcon}</h1>
+      <h2>Hi: {maxTemp} / Lo: {minTemp} {`(feels like ${feelsLike})`}</h2>
       <h2>{date}</h2>
-      <h2><FiSunrise /> Sunrise: {formattedTime(weather?.sys?.sunrise)}                        <FiSunset /> Sunset: {formattedTime(weather?.sys?.sunset)}</h2>
+      <h2><FiSunrise /> Sunrise: {sunrise} <FiSunset /> Sunset: {sunset}</h2>
       {userCoords ? <h2>Closest bench to watch the sunset is at {closestBenchAddress}</h2> : <h2 onClick={getUserCoords}>Click here to get closest bench to watch the sunset.</h2>}
       <Map userCoords={userCoords} closestBench={closestBench} setUserCoords={setUserCoords} setClosestBench={setClosestBench} closestBenchAddress={closestBenchAddress} setClosestBenchAddress={setClosestBenchAddress} />
       {photos ? photos.map((data) => (<img src={data?.urls?.small} alt={data?.alt_description} />)) : null}

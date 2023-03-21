@@ -11,16 +11,18 @@ body {
 
 h1,
 h2 {
-  color: #333;
+  color: #fcfcfc;
   font-family: 'Open Sans', sans-serif;
 }
 
 h1 {
   font-size: 3em;
+  text-shadow: 1px 1px 1px #666;
 }
 
 h2 {
   font-size: 1.5em;
+  text-shadow: 1px 1px #666;
 }
 
 /* Weather font */
