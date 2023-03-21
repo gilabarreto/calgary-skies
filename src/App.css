@@ -7,13 +7,10 @@ body {
   margin: 0;
   padding: 0;
   height: 100vh;
-  /* background-image: url("./../public/bg.png");
-  background-repeat: no-repeat;
-  background-position: center bottom;
-  background-size: cover; */
 }
 
-h1, h2 {
+h1,
+h2 {
   color: #333;
   font-family: 'Open Sans', sans-serif;
 }
@@ -33,4 +30,3 @@ h2 {
   width: 50vw;
   height: 50vh;
 }
-

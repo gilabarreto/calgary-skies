@@ -25,7 +25,7 @@ export function gradientBg() {
     'radial-gradient(circle, #FFC107, #FF9800, #FF5722)', // 5pm - 6pm
     'radial-gradient(circle, #FF9800, #FF5722, #E91E63)', // 6pm - 7pm
     'radial-gradient(circle, #FF5722, #E91E63, #9C27B0)', // 7pm - 8pm
-    'radial-gradient(circle, rgba(233, 30, 99, 0.5), rgba(156, 39, 176, 0.5), rgba(103, 58, 183, 0.5))', // 8pm - 9pm
+    'radial-gradient(circle, #E91E63, #9C27B0, #673AB7)', // 8pm - 9pm
     'radial-gradient(circle, #9C27B0, #673AB7, #3F51B5)', // 9pm - 10pm
     'radial-gradient(circle at center, #673AB7, #3F51B5, #2c3e50)', // 10pm - 11pm
     'radial-gradient(circle at center, #3F51B5, #2c3e50, #2980b9)', // 11pm - 12am
