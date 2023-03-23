@@ -1,22 +1,20 @@
 import './App.css';
-import axios from 'axios';
 import Map from './components/Map';
 import UnsplashImg from './components/Unsplash';
 import { FiSunrise, FiSunset } from 'react-icons/fi'
 import { useEffect, useState, useCallback } from 'react';
-import { formattedDate, formattedTime, gradientBg } from './helpers/selectors';
+import { formattedDate, gradientBg } from './helpers/selectors';
+import OpenWeather from './components/OpenWeather';
 
 function App() {
+  const { temperature, weatherIcon, minTemp, maxTemp, feelsLike, sunrise, sunset } = OpenWeather();
 
   const [date, setDate] = useState(formattedDate());
-  const [weather, setWeather] = useState(null);
   const [userCoords, setUserCoords] = useState(null);
   const [closestBench, setClosestBench] = useState(null);
   const [closestBenchAddress, setClosestBenchAddress] = useState(null);
 
   const background = gradientBg();
-
-  const openWeather = `https://api.openweathermap.org/data/2.5/weather?q=calgary&appid=${process.env.REACT_APP_WEATHER_KEY}&units=metric`;
 
   const getUserCoords = useCallback(() => {
     navigator.geolocation.getCurrentPosition(
@@ -29,20 +27,6 @@ function App() {
       });
   }, [setUserCoords]);
 
-  const fetchWeather = useCallback(() => {
-    axios.get(openWeather).then((res) => {
-      setWeather(res.data);
-    }).catch((error) => {
-      console.log(error);
-    })
-  }, [openWeather]);
-
-  useEffect(() => {
-    if (!weather) {
-      fetchWeather();
-    }
-  }, [fetchWeather, weather])
-
   useEffect(() => {
     const intervalId = setInterval(() => {
       setDate(formattedDate());
@@ -50,14 +34,6 @@ function App() {
 
     return () => clearInterval(intervalId);
   }, []);
-
-  const temperature = `${Math.floor(weather?.main?.temp)}°`;
-  const weatherIcon = (<img src={`https://openweathermap.org/img/wn/${weather?.weather[0]?.icon}@2x.png`} title={weather?.weather[0]?.description} alt="weather icon" />);
-  const minTemp = `${Math.floor(weather?.main?.temp_min)}°`;
-  const maxTemp = `${Math.floor(weather?.main?.temp_max)}°`;
-  const feelsLike = `${Math.floor(weather?.main?.feels_like)}°`;
-  const sunrise = formattedTime(weather?.sys?.sunrise);
-  const sunset = formattedTime(weather?.sys?.sunset);
 
   return (
     <div style={{ background }}>

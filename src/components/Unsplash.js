@@ -1,7 +1,7 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
 
-export default function UnsplashImg() {
+function UnsplashImg() {
   const [photos, setPhotos] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -37,3 +37,5 @@ export default function UnsplashImg() {
     </>
   );
 }
+
+export default memo(UnsplashImg);
