@@ -1,20 +1,21 @@
 import './App.css';
 import Map from './components/Map';
 import UnsplashImg from './components/Unsplash';
-import { FiSunrise, FiSunset } from 'react-icons/fi'
+import { FiSunrise, FiSunset, FiArrowLeft } from 'react-icons/fi'
 import { useEffect, useState, useCallback } from 'react';
-import { formattedDate, gradientBg } from './helpers/selectors';
+import { formattedTime, gradientBg } from './helpers/selectors';
 import OpenWeather from './components/OpenWeather';
 
 function App() {
+  const root = document.documentElement;
+  root.style.setProperty('--bg-color', gradientBg());
+
   const { temperature, weatherIcon, minTemp, maxTemp, feelsLike, sunrise, sunset } = OpenWeather();
 
-  const [date, setDate] = useState(formattedDate());
+  const [currentTime, setCurrentTime] = useState(formattedTime());
   const [userCoords, setUserCoords] = useState(null);
   const [closestBench, setClosestBench] = useState(null);
   const [closestBenchAddress, setClosestBenchAddress] = useState(null);
-
-  const background = gradientBg();
 
   const getUserCoords = useCallback(() => {
     navigator.geolocation.getCurrentPosition(
@@ -29,24 +30,72 @@ function App() {
 
   useEffect(() => {
     const intervalId = setInterval(() => {
-      setDate(formattedDate());
+      setCurrentTime(formattedTime(date.getTime() / 1000));
     }, 1000);
 
     return () => clearInterval(intervalId);
   }, []);
 
+  const weekday = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+  const month = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
+  const date = new Date();
+  let currentDay = date.getUTCDate();
+  let currentWeekday = weekday[date.getUTCDay() - 1];
+  let currentMonth = month[date.getUTCMonth()];
+
   return (
-    <div style={{ background }}>
-      <h1>#CalgarySkies</h1>
-      <h1>{temperature} {weatherIcon}</h1>
-      <h2>Hi: {maxTemp} / Lo: {minTemp} {`(feels like ${feelsLike})`}</h2>
-      <h2>{date}</h2>
-      <h2><FiSunrise /> Sunrise: {sunrise} <FiSunset /> Sunset: {sunset}</h2>
-      {userCoords ? <h2>Closest bench to watch the sunset is at {closestBenchAddress}</h2> : <h2 onClick={getUserCoords}>Click here to get closest bench to watch the sunset.</h2>}
-      <Map userCoords={userCoords} closestBench={closestBench} setUserCoords={setUserCoords} setClosestBench={setClosestBench} closestBenchAddress={closestBenchAddress} setClosestBenchAddress={setClosestBenchAddress} />
-      <UnsplashImg />
-      <UnsplashImg />
-      <UnsplashImg />
+    <div>
+      <div className='navbar'>
+        <span>#CalgarySkies</span><span>#About #Help</span>
+      </div>
+      <div className='pound'>
+        <div className='pound-top'>
+          <div className='pound-top-left'>
+            <span>{currentWeekday}</span>
+            <span>{currentMonth} {currentDay}</span>
+            <span>{currentTime}</span>
+          </div>
+          <div className='pound-top-center'>
+            <h1>{temperature}</h1> <span> {weatherIcon}</span>
+          </div>
+          <div className='pound-top-right'>
+            <span>High: {maxTemp}</span>
+            <br />
+            <span>Low: {minTemp} </span>
+            <br />
+            <span>{`Feels like ${feelsLike}`}</span>
+          </div>
+        </div>
+        <div className='pound-center'>
+          <div className='pound-center-left'>
+            <span><FiSunrise title={"Sunrise"} /> {sunrise} </span>
+            <br />
+            <span><FiSunset title={"Sunset"} /> {sunset}</span>
+          </div>
+          <div className='pound-center-center'>
+            <Map userCoords={userCoords} closestBench={closestBench} setUserCoords={setUserCoords} setClosestBench={setClosestBench} closestBenchAddress={closestBenchAddress} setClosestBenchAddress={setClosestBenchAddress} />
+          </div>
+          <div className='pound-center-right'>
+            <span className='benches-to-watch-the-sunset'><FiArrowLeft /> Benches to watch the sunset in Calgary</span>
+            <p>
+              {userCoords ? <><h5>Closest bench to you is at</h5><h5> {closestBenchAddress}</h5></> : <h3 onClick={getUserCoords}>Click here to get closest bench to watch the sunset.</h3>}
+            </p>
+          </div>
+        </div>
+        <div className='pound-bottom'>
+          <div className='pound-bottom-left'>
+            <UnsplashImg />
+          </div>
+          <div className='pound-bottom-center'>
+
+          </div>
+          <div className='pound-bottom-right'>
+            <UnsplashImg />
+          </div>
+        </div>
+
+      </div>
     </div>
   );
 }

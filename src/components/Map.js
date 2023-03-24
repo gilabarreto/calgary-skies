@@ -116,7 +116,7 @@ function BenchesMap() {
         />
       ))}
 
-      {selectedBench && (
+      {selectedBench && selectedBench.address && (
         <InfoWindow
           position={selectedBench}
           onCloseClick={onInfoWindowClose}

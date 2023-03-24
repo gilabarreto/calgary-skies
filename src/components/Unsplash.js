@@ -7,7 +7,7 @@ function UnsplashImg() {
 
   useEffect(() => {
     const randomPage = Math.floor(Math.random() * 100) + 1;
-    const unsplashUrl = `https://api.unsplash.com/search/photos?query=calgary,sky&page=${randomPage}&per_page=30&orientation=squarish&client_id=${process.env.REACT_APP_UNSPLASH_KEY}`;
+    const unsplashUrl = `https://api.unsplash.com/search/photos?query=calgary&page=${randomPage}&per_page=30&orientation=squarish&client_id=${process.env.REACT_APP_UNSPLASH_KEY}`;
 
     axios
       .get(unsplashUrl)
@@ -30,9 +30,7 @@ function UnsplashImg() {
   return (
     <>
       {photos && photos.length > 0 && (
-        <div>
-          <img src={photos[Math.floor(Math.random() * photos.length)]} alt="Calgary sky" />
-        </div>
+          <img src={photos[Math.floor(Math.random() * photos.length)]} alt="Calgary sky" style={{ height: "15em"}} />
       )}
     </>
   );

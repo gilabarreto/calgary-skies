@@ -5,7 +5,7 @@ import { formattedDate, formattedTime } from './../helpers/selectors'
 const OpenWeather = () => {
   const [weather, setWeather] = useState(null);
 
-  const openWeather = `https://api.openweathermap.org/data/2.5/weather?q=calgary&appid=${process.env.REACT_APP_WEATHER_KEY}&units=metric`;
+  const openWeather = `https://api.openweathermap.org/data/2.5/weather?q=Calgary&appid=${process.env.REACT_APP_WEATHER_KEY}&units=metric`;
 
   const fetchWeather = useCallback(() => {
     axios
