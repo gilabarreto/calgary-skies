@@ -44,142 +44,83 @@ span {
   align-content: center;
 }
 
-.pound-top {
+.pound-top,
+.pound-center,
+.pound-bottom {
   display: flex;
   align-items: center;
   align-content: center;
 }
 
 .pound-top-left {
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: column;
-  justify-content: center;
-  align-content: center;
-  align-items: center;
   border-right: 60px solid #fcfcfc;
   border-bottom: 60px solid #fcfcfc;
-  min-height: 20em;
-  min-width: 25em;
 }
 
 .pound-top-center {
+  border-right: 60px solid #fcfcfc;
+  border-left: 60px solid #fcfcfc;
+  border-bottom: 60px solid #fcfcfc;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   align-content: center;
   align-items: flex-start;
-  border-right: 60px solid #fcfcfc;
-  border-left: 60px solid #fcfcfc;
-  border-bottom: 60px solid #fcfcfc;
   min-height: 20em;
   min-width: 25em;
+}
+
+.pound-bottom-center {
+  border-right: 60px solid #fcfcfc;
+  border-left: 60px solid #fcfcfc;
+  border-top: 60px solid #fcfcfc;
 }
 
 .pound-top-right {
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: column;
-  justify-content: center;
-  align-content: center;
-  align-items: center;
   border-left: 60px solid #fcfcfc;
   border-bottom: 60px solid #fcfcfc;
-  min-height: 20em;
-  min-width: 25em;
-}
-
-.pound-center {
-  display: flex;
-  align-items: center;
-  align-content: center;
-}
-
-.pound-center-left {
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: column;
-  justify-content: center;
-  align-content: center;
-  align-items: center;
-  border-right: 60px solid #fcfcfc;
-  border-top: 60px solid #fcfcfc;
-  border-bottom: 60px solid #fcfcfc;
-  min-height: 20em;
-  min-width: 25em;
 }
 
 .pound-center-center {
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-content: center;
-  ;
   border: 60px solid #fcfcfc;
-  word-wrap: break-word;
-  min-height: 20em;
-  min-width: 25em;
 }
 
 .pound-center-right {
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: column;
-  justify-content: center;
-  align-content: center;
-  align-items: center;
   border-left: 60px solid #fcfcfc;
   border-top: 60px solid #fcfcfc;
   border-bottom: 60px solid #fcfcfc;
-  min-height: 20em;
-  min-width: 25em;
 }
 
-.benches-to-watch-the-sunset {
-  display: flex;
-  justify-content: center;
-  width: 10em;
-  font-size: 2.5em;
-}
-
-.pound-bottom {
-  display: flex;
-  align-items: top;
-  align-content: center;
+.pound-center-left {
+  border-right: 60px solid #fcfcfc;
+  border-top: 60px solid #fcfcfc;
+  border-bottom: 60px solid #fcfcfc;
 }
 
 .pound-bottom-left {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-content: center;
   border-right: 60px solid #fcfcfc;
   border-top: 60px solid #fcfcfc;
-  min-height: 20em;
-  min-width: 25em;
 }
 
+.pound-bottom-right {
+  border-left: 60px solid #fcfcfc;
+  border-top: 60px solid #fcfcfc;
+}
+
+.pound-top-left,
+.pound-top-right,
+.pound-center-left,
+.pound-center-right,
+.pound-center-center,
+.pound-bottom-left,
+.pound-bottom-right,
 .pound-bottom-center {
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;
   justify-content: center;
   align-content: center;
-  border-right: 60px solid #fcfcfc;
-  border-left: 60px solid #fcfcfc;
-  border-top: 60px solid #fcfcfc;
-  min-height: 20em;
-  min-width: 25em;
-}
-
-.pound-bottom-right {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-content: center;
-  border-left: 60px solid #fcfcfc;
-  border-top: 60px solid #fcfcfc;
+  align-items: center;
   min-height: 20em;
   min-width: 25em;
 }
@@ -187,4 +128,11 @@ span {
 .map-container {
   width: 25em;
   height: 20em;
+}
+
+.benches-to-watch-the-sunset {
+  display: flex;
+  justify-content: center;
+  width: 10em;
+  font-size: 2.5em;
 }
