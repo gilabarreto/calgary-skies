@@ -25,7 +25,7 @@ const OpenWeather = () => {
   }, [fetchWeather, weather]);
 
   const temperature = `${Math.floor(weather?.main?.temp)}°`;
-  const weatherIcon = (<img src={`https://openweathermap.org/img/wn/${weather?.weather[0]?.icon}@2x.png`} title={weather?.weather[0]?.description} alt="weather icon" />);
+  const weatherIcon = (<img src={`https://openweathermap.org/img/wn/${weather?.weather[0]?.icon}@2x.png`} title={weather?.weather[0]?.description} alt="weather icon" style={{ width: "6rem", height: "auto", filter: "drop-shadow(1px 1px 1px #666)" }}/> );
   const minTemp = `${Math.floor(weather?.main?.temp_min)}°`;
   const maxTemp = `${Math.floor(weather?.main?.temp_max)}°`;
   const feelsLike = `${Math.floor(weather?.main?.feels_like)}°`;

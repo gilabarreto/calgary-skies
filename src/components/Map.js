@@ -1,7 +1,7 @@
 import axios from "axios";
 
 import { useState, useEffect, useCallback } from "react";
-import { GoogleMap, useLoadScript, MarkerF, InfoWindow } from "@react-google-maps/api"
+import { GoogleMap, useLoadScript, MarkerF, InfoWindowF } from "@react-google-maps/api"
 import { benches } from "../benches"
 
 export default function Map(props) {
@@ -117,14 +117,14 @@ function BenchesMap() {
       ))}
 
       {selectedBench && selectedBench.address && (
-        <InfoWindow
+        <InfoWindowF
           position={selectedBench}
           onCloseClick={onInfoWindowClose}
         >
           <div>
             <p><a href={`https://www.google.com/maps/place/${selectedBench.lat},${selectedBench.lng}`} target={"_blank"} rel={"noreferrer"}>{selectedBench.address}</a></p>
           </div>
-        </InfoWindow>
+        </InfoWindowF>
       )}
     </GoogleMap>
   );

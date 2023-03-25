@@ -3,7 +3,7 @@ import Map from './components/Map';
 import FlickrImg from './components/Flickr'
 import OpenWeather from './components/OpenWeather';
 import YouTube from 'react-youtube';
-import { FiSunrise, FiSunset, FiArrowLeft } from 'react-icons/fi'
+import { FiSunrise, FiSunset, FiArrowLeft, FiInfo, FiHelpCircle } from 'react-icons/fi'
 import { useEffect, useState, useCallback } from 'react';
 import { formattedTime, gradientBg } from './helpers/selectors';
 
@@ -50,18 +50,22 @@ function App() {
   return (
     <div>
       <div className='navbar'>
-        <span onClick={() => {
-          setHelp(false)
-          setAbout(false)
-        }}>#CalgarySkies</span>
-        <span onClick={() => {
-          setHelp(false)
-          setAbout(true)
-        }}>#About </span>
-        <span onClick={() => {
-          setHelp(true)
-          setAbout(false)
-        }}>#Help</span>
+        <div className='navbar-left'>
+          <span className='navbar-links' onClick={() => {
+            setHelp(false)
+            setAbout(false)
+          }}>#CalgarySkies</span>
+        </div>
+        <div className='navbar-right'>
+          <span className='navbar-links' onClick={() => {
+            setHelp(false)
+            setAbout(true)
+          }}><FiInfo style={{ width: "3.5rem", height: "auto", filter: "drop-shadow(1px 1px 1px #666)" }} />&nbsp;About&ensp;</span>
+          <span className='navbar-links' onClick={() => {
+            setHelp(true)
+            setAbout(false)
+          }}><FiHelpCircle style={{ width: "3.5rem", height: "auto", filter: "drop-shadow(1px 1px 1px #666)" }} />&nbsp;Help&nbsp;</span>
+        </div>
       </div>
       <div className='pound'>
         <div className='pound-top'>
@@ -83,17 +87,17 @@ function App() {
         </div>
         <div className='pound-center'>
           <div className='pound-center-left'>
-            <span><FiSunrise title={"Sunrise"} /> {sunrise} </span>
+            <span><FiSunrise title={"Sunrise"} style={{ width: "3.5rem", height: "auto", filter: "drop-shadow(1px 1px 1px #666)" }} /> {sunrise} </span>
             <br />
-            <span><FiSunset title={"Sunset"} /> {sunset}</span>
+            <span><FiSunset title={"Sunset"} style={{ width: "3.5rem", height: "auto", filter: "drop-shadow(1px 1px 1px #666)" }} /> {sunset}</span>
           </div>
           <div className='pound-center-center'>
             {help && !about ? (
-              <div style={{ background: "#000" }}><YouTube
+              <div><YouTube
                 videoId='KQetemT1sWc'
                 title='Youtube video player'
                 opts={{
-                  height: '315px',
+                  height: '317px',
                   width: '400px',
                   playerVars: {
                     autoplay: 1,
@@ -101,15 +105,20 @@ function App() {
                 }}
               /></div>
             ) : !help && about ? (
-              <h5>
-                This weather app was inspired by Calgary skies,
-                <br />
-                one of the sunniest places in Canada.
-                <br />
-                Victor Barreto is Web Developer and nature lover.
-                <br />
-                Click here to learn more about him and his projects.
-              </h5>
+              <>
+                <div className='about-text'>
+                  <h5>
+                    This weather app was inspired by Calgary skies, one of the sunniest places in Canada.
+                  </h5>
+                </div>
+                <p>
+                  <div className='about-text'>
+                    <h5>
+                      Victor Barreto is a Web Developer and nature lover. Click here to learn more about him and his projects.
+                    </h5>
+                  </div>
+                </p>
+              </>
             ) : !help && !about ? (
               <Map
                 userCoords={userCoords}
@@ -122,10 +131,22 @@ function App() {
             ) : null}
           </div>
           <div className='pound-center-right'>
-            <span className='benches-to-watch-the-sunset'><FiArrowLeft /> Benches to watch the sunset in Calgary</span>
-
-            {userCoords ? <><h5>Closest bench to you is at</h5><h5> {closestBenchAddress}</h5></> : <h5 onClick={getUserCoords}>Click here to get closest bench to watch the sunset.</h5>}
-
+            {help && !about ? (
+              <>
+                <span><FiArrowLeft style={{ width: "3.5rem", height: "auto", filter: "drop-shadow(1px 1px 1px #666)" }} />Help</span>
+              </>
+            ) : !help && about ? (
+              <>
+                <span><FiArrowLeft style={{ width: "3.5rem", height: "auto", filter: "drop-shadow(1px 1px 1px #666)" }} />About</span>
+              </>
+            ) : !help && !about ? (
+              <>
+                <span className='benches-to-watch-the-sunset'><FiArrowLeft style={{ width: "3.5rem", height: "auto", filter: "drop-shadow(1px 1px 1px #666)" }} />Benches to watch the sunset in Calgary</span>
+                <p>
+                  {userCoords ? <><h5>Closest bench to you is at</h5><h5> {closestBenchAddress}</h5></> : <h5 onClick={getUserCoords}>Click here to get closest bench to watch the sunset.</h5>}
+                </p>
+              </>
+            ) : null}
           </div>
         </div>
         <div className='pound-bottom'>

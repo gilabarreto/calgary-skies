@@ -15,7 +15,6 @@ function FlickrImg() {
           url: `https://live.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}_c.jpg`,
           link: `https://www.flickr.com/photos/${photo.owner}/${photo.id}`,
         }));
-        console.log(response)
         setPhotos(photosArray);
       })
       .catch((error) => {
@@ -36,7 +35,7 @@ function FlickrImg() {
     <>
       {photos && photos.length > 0 && (
         <a href={selectedPhoto.link} target="_blank" rel="noreferrer">
-          <img src={selectedPhoto.url} alt="Calgary sky" style={{ height: "15em" }} />
+          <img src={selectedPhoto.url} alt="Calgary sky" />
         </a>
       )}
     </>
