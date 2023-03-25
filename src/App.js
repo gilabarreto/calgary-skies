@@ -108,7 +108,7 @@ function App() {
               <>
                 <div className='about-text'>
                   <h5>
-                    This weather app was inspired by Calgary skies, one of the sunniest places in Canada.
+                    People always talk about how cold Calgary is, but they forget to look up and enjoy its beautiful skies. Believe it or not, Calgary is one of the sunniest places in Canada. Sure, winter is coming, but don't forget that the future looks bright!
                   </h5>
                 </div>
                 <p>
@@ -132,13 +132,19 @@ function App() {
           </div>
           <div className='pound-center-right'>
             {help && !about ? (
-              <>
-                <span><FiArrowLeft style={{ width: "3.5rem", height: "auto", filter: "drop-shadow(1px 1px 1px #666)" }} />Help</span>
-              </>
+              <div className='help-info'>
+                <span><FiArrowLeft style={{ width: "3.5rem", height: "auto", filter: "drop-shadow(1px 1px 1px #666)" }} />&nbsp;Help</span>
+                <p>
+                  <h5>I know it's not "Help", but "Here comes the sun" sounds more appropriate</h5>
+                </p>
+              </div>
             ) : !help && about ? (
-              <>
-                <span><FiArrowLeft style={{ width: "3.5rem", height: "auto", filter: "drop-shadow(1px 1px 1px #666)" }} />About</span>
-              </>
+              <div className='about-info'>
+                <span><FiArrowLeft style={{ width: "3.5rem", height: "auto", filter: "drop-shadow(1px 1px 1px #666)" }} />&nbsp;About</span>
+                <p>
+                  <h5>Information about the App and the Author</h5>
+                </p>
+              </div>
             ) : !help && !about ? (
               <>
                 <span className='benches-to-watch-the-sunset'><FiArrowLeft style={{ width: "3.5rem", height: "auto", filter: "drop-shadow(1px 1px 1px #666)" }} />Benches to watch the sunset in Calgary</span>

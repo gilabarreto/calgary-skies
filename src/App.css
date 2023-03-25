@@ -168,9 +168,20 @@ p {
 }
 
 .benches-to-watch-the-sunset {
+  font-size: 2.5rem;
   display: flex;
   justify-content: center;
-  font-size: 2.5rem;
+}
+
+.help-info,
+.about-info {
+  padding-left: 1rem;
+  padding-right: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  align-content: center;
 }
 
 .about-text {

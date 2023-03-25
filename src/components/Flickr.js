@@ -35,7 +35,7 @@ function FlickrImg() {
     <>
       {photos && photos.length > 0 && (
         <a href={selectedPhoto.link} target="_blank" rel="noreferrer">
-          <img src={selectedPhoto.url} alt="Calgary sky" />
+          <img src={selectedPhoto.url} alt="Calgary sky" style={{ maxWidth: "20rem", maxHeight: "auto", filter: "drop-shadow(1px 1px 1px #666)" }} />
         </a>
       )}
     </>
