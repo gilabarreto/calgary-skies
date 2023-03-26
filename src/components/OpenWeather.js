@@ -1,17 +1,18 @@
 import axios from 'axios';
 import { useCallback, useEffect, useState } from 'react';
-import { formattedDate, formattedTime } from './../helpers/selectors'
+import { formattedSunsetSunriseTime } from './../helpers/selectors'
 
 const OpenWeather = () => {
   const [weather, setWeather] = useState(null);
 
-  const openWeather = `https://api.openweathermap.org/data/2.5/weather?q=Calgary&appid=${process.env.REACT_APP_WEATHER_KEY}&units=metric`;
+  const openWeather = `http://localhost:5000/weather`;
 
   const fetchWeather = useCallback(() => {
     axios
       .get(openWeather)
-      .then((res) => {
-        setWeather(res.data);
+      .then((response) => {
+        console.log(response)
+        setWeather(response.data);
       })
       .catch((error) => {
         console.log(error);
@@ -29,11 +30,10 @@ const OpenWeather = () => {
   const minTemp = `${Math.floor(weather?.main?.temp_min)}°`;
   const maxTemp = `${Math.floor(weather?.main?.temp_max)}°`;
   const feelsLike = `${Math.floor(weather?.main?.feels_like)}°`;
-  const sunrise = formattedTime(weather?.sys?.sunrise);
-  const sunset = formattedTime(weather?.sys?.sunset);
-  const date = formattedDate();
+  const sunrise = formattedSunsetSunriseTime(weather?.sys?.sunrise);
+  const sunset = formattedSunsetSunriseTime(weather?.sys?.sunset);
 
-  return { temperature, weatherIcon, minTemp, maxTemp, feelsLike, sunrise, sunset, date };
+  return { temperature, weatherIcon, minTemp, maxTemp, feelsLike, sunrise, sunset };
 };
 
 export default OpenWeather;

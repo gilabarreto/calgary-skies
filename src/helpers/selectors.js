@@ -1,10 +1,10 @@
-export function formattedDate() {
-  const currentDate = new Date()
-  const dateOptions = { weekday: 'long', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric' };
-  return currentDate.toLocaleDateString('en-US', dateOptions).replace(' AM', 'am').replace(' PM', 'pm').replace(' at', ' @');
+export function formattedClockTime(time) {
+  const currentTime = new Date(time * 1000);
+  const timeOptions = { hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: true }
+  return currentTime.toLocaleTimeString('en-US', timeOptions).replace(' AM', 'am').replace(' PM', 'pm');
 }
 
-export function formattedTime(time) {
+export function formattedSunsetSunriseTime(time) {
   const currentTime = new Date(time * 1000);
   const timeOptions = { hour: 'numeric', minute: 'numeric', hour12: true }
   return currentTime.toLocaleTimeString('en-US', timeOptions).replace(' AM', 'am').replace(' PM', 'pm');

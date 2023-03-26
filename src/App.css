@@ -20,6 +20,11 @@ body {
   min-height: 100vh;
 }
 
+a {
+  color: #333;
+  text-decoration: none;
+}
+
 h1 {
   font-size: 8rem;
   text-shadow: 1px 1px 1px #666;
