@@ -7,6 +7,7 @@ import { benches } from "../benches"
 export default function Map(props) {
 
   const { userCoords, closestBench, setUserCoords, setClosestBench, closestBenchAddress, setClosestBenchAddress } = props;
+  const [mapCenter, setMapCenter] = useState({ lat: 51.0447, lng: -114.0719 });
 
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_KEY
@@ -73,10 +74,10 @@ export default function Map(props) {
 
   if (!isLoaded) return <div>Loading...</div>
 
-  return <BenchesMap userCoords={userCoords} closestBenchAddress={closestBenchAddress} />
+  return <BenchesMap userCoords={userCoords} closestBenchAddress={closestBenchAddress} center={mapCenter} />;
 }
 
-function BenchesMap() {
+function BenchesMap({ center }) {
   const [selectedBench, setSelectedBench] = useState(null);
 
   const onMarkerClick = (bench) => {
@@ -105,7 +106,7 @@ function BenchesMap() {
   return (
     <GoogleMap
       zoom={12}
-      center={{ lat: 51.0447, lng: -114.0719 }}
+      center={center}
       mapContainerClassName="map-container"
     >
       {benches.map((bench) => (
