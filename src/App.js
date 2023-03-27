@@ -62,11 +62,11 @@ function App() {
           <span className='navbar-links' onClick={() => {
             setHelp(false)
             setAbout(true)
-          }}><FiInfo style={{ width: "3.5rem", height: "auto", filter: "drop-shadow(1px 1px 1px #666)" }} />&nbsp;About&ensp;</span>
+          }}><FiInfo style={{ width: "2.5rem", height: "auto", filter: "drop-shadow(1px 1px 1px #666)" }} />&nbsp;About&ensp;</span>
           <span className='navbar-links' onClick={() => {
             setHelp(true)
             setAbout(false)
-          }}><FiHelpCircle style={{ width: "3.5rem", height: "auto", filter: "drop-shadow(1px 1px 1px #666)" }} />&nbsp;Help&nbsp;</span>
+          }}><FiHelpCircle style={{ width: "2.5rem", height: "auto", filter: "drop-shadow(1px 1px 1px #666)" }} />&nbsp;Help&nbsp;</span>
         </div>
       </div>
       <div className='pound'>
