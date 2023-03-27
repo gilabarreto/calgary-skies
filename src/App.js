@@ -33,19 +33,19 @@ function App() {
 
   const weekday = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
   const month = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-  
+
   const memoizedDate = useMemo(() => new Date(), []);
-  
+
   let currentDay = memoizedDate.getUTCDate();
   let currentWeekday = weekday[memoizedDate.getUTCDay() % 7];
   let currentMonth = month[memoizedDate.getUTCMonth()];
-  
+
   useEffect(() => {
     const intervalId = setInterval(() => {
       const date = new Date();
       setCurrentTime(formattedClockTime(date.getTime() / 1000));
     }, 1000);
-  
+
     return () => clearInterval(intervalId);
   }, []);
 
@@ -136,11 +136,11 @@ function App() {
             {help && !about ? (
               <div className='help-info'>
                 <span><FiArrowLeft style={{ width: "3.5rem", height: "auto", filter: "drop-shadow(1px 1px 1px #666)" }} />&nbsp;Help</span>
-                <h5>
+                <h2>
                   <p>
                     I know it's not "Help", but "Here comes the sun" sounds more appropriate
                   </p>
-                </h5>
+                </h2>
               </div>
             ) : !help && about ? (
               <div className='about-info'>
@@ -154,7 +154,7 @@ function App() {
             ) : !help && !about ? (
               <>
                 <span className='benches-to-watch-the-sunset'><FiArrowLeft style={{ width: "3.5rem", height: "auto", filter: "drop-shadow(1px 1px 1px #666)" }} />Benches to watch the sunset in Calgary</span>
-                {userCoords ? <><h5>Closest bench to you is at</h5><h5> {closestBenchAddress}</h5></> : <h5 onClick={getUserCoords}>Click here to get closest bench to watch the sunset.</h5>}
+                {userCoords ? <><h5>Closest bench to you is at {closestBenchAddress}</h5></> : <h5 onClick={getUserCoords}>Click here to get closest bench to watch the sunset.</h5>}
               </>
             ) : null}
           </div>

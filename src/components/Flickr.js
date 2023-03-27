@@ -6,7 +6,7 @@ function FlickrImg() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const flickrUrl = `http://localhost:5000/flickr`;
+    const flickrUrl = `https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${process.env.REACT_APP_FLICKR_KEY}&tags=calgary,sky&sort=relevance&format=json&nojsoncallback=1`;
 
     axios
       .get(flickrUrl)

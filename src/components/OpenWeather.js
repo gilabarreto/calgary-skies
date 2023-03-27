@@ -5,7 +5,7 @@ import { formattedSunsetSunriseTime } from './../helpers/selectors'
 const OpenWeather = () => {
   const [weather, setWeather] = useState(null);
 
-  const openWeather = `http://localhost:5000/weather`;
+  const openWeather = `https://api.openweathermap.org/data/2.5/weather?q=Calgary&appid=a33de441ff78dada819b7ac1588b6968&units=metric`;
 
   const fetchWeather = useCallback(() => {
     axios
