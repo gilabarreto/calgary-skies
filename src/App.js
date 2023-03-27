@@ -13,10 +13,10 @@ function App() {
 
   const { temperature, weatherIcon, minTemp, maxTemp, feelsLike, sunrise, sunset } = OpenWeather();
 
-  const [currentTime, setCurrentTime] = useState(null);
+  const [currentTime, setCurrentTime] = useState(<span>...</span>);
   const [userCoords, setUserCoords] = useState(null);
   const [closestBench, setClosestBench] = useState(null);
-  const [closestBenchAddress, setClosestBenchAddress] = useState(null);
+  const [closestBenchAddress, setClosestBenchAddress] = useState(<span>...</span>);
   const [about, setAbout] = useState(false);
   const [help, setHelp] = useState(false)
 
@@ -109,16 +109,16 @@ function App() {
             ) : !help && about ? (
               <>
                 <div className='about-text'>
-                  <h5>
+                  <h3>
                     People always talk about how cold Calgary is, but they forget to look up and enjoy its beautiful skies. Believe it or not, Calgary is one of the sunniest places in Canada. Sure, winter is coming, but don't forget that the future looks bright!
-                  </h5>
+                  </h3>
                 </div>
                 <div className='about-text'>
-                  <h5>
+                  <h3>
                     <p>
                       Victor Barreto is a Web Developer and nature lover. Click <a href="https://github.com/gilabarreto" target="_blank" rel="noreferrer">here</a> to learn more about him and his projects.
                     </p>
-                  </h5>
+                  </h3>
                 </div>
               </>
             ) : !help && !about ? (
@@ -136,25 +136,21 @@ function App() {
             {help && !about ? (
               <div className='help-info'>
                 <span><FiArrowLeft style={{ width: "3.5rem", height: "auto", filter: "drop-shadow(1px 1px 1px #666)" }} />&nbsp;Help</span>
-                <h2>
-                  <p>
-                    I know it's not "Help", but "Here comes the sun" sounds more appropriate
-                  </p>
-                </h2>
+                <p style={{ fontSize: "1.5rem", textShadow: "1px 1px 1px #666" }}>
+                  I know it's not "Help", but "Here comes the sun" sounds more appropriate
+                </p>
               </div>
             ) : !help && about ? (
               <div className='about-info'>
                 <span><FiArrowLeft style={{ width: "3.5rem", height: "auto", filter: "drop-shadow(1px 1px 1px #666)" }} />&nbsp;About</span>
-                <h5>
-                  <p>
-                    Information about the App and the Author
-                  </p>
-                </h5>
+                <p style={{ fontSize: "2rem", textShadow: "1px 1px 1px #666" }}>
+                  Information about the App and the Author
+                </p>
               </div>
             ) : !help && !about ? (
               <>
                 <span className='benches-to-watch-the-sunset'><FiArrowLeft style={{ width: "3.5rem", height: "auto", filter: "drop-shadow(1px 1px 1px #666)" }} />Benches to watch the sunset in Calgary</span>
-                {userCoords ? <><h5>Closest bench to you is at {closestBenchAddress}</h5></> : <h5 onClick={getUserCoords}>Click here to get closest bench to watch the sunset.</h5>}
+                {userCoords ? <><h2>Closest bench to you is at {closestBenchAddress}</h2></> : <h2 onClick={getUserCoords} style={{ cursor: "pointer" }}>Click here to get closest bench to watch the sunset.</h2>}
               </>
             ) : null}
           </div>
