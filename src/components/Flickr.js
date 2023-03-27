@@ -26,7 +26,7 @@ function FlickrImg() {
   }, []);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <div><span>...</span></div>;
   }
 
   const selectedPhoto = photos[Math.floor(Math.random() * photos.length)];
